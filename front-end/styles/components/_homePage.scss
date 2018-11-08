@@ -1,0 +1,62 @@
+.home-page {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Lato', sans-serif;
+
+  .container {
+    margin: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 100vw;
+    max-height: 100vh;
+    text-align: center;
+    padding-top: 10vh;
+    overflow: auto;
+
+    .container-header {
+      text-transform: uppercase;
+      font-weight: 900;
+      color: $color-gray;
+
+      @include max-screen($desktop) {
+        font-size: 10vw;
+      }
+    }
+
+    .register__section,
+    .form {
+      display: flex;
+      flex-direction: column;
+      font-size: 18px;
+    }
+
+    .general__btn {
+      display: block;
+      width: 150px;
+      height: 45px;
+      margin: auto;
+      border: 1px solid $color-transparent;
+      border-radius: 20px;
+      background-color: $color-gray;
+      color: $color-white;
+      font-size: 18px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $color-gray-light;
+      }
+    }
+
+    .register__btn {
+      padding-bottom: 10vh;
+    }
+  }
+}

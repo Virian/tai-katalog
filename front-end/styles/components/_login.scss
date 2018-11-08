@@ -1,0 +1,22 @@
+.info {
+  display: inline-block;
+  margin-top: 40px;
+  font-size: 20px;
+  font-weight: 800;
+  color: $color-gray;
+  line-height: 35px;
+}
+
+.login-header {
+  margin-bottom: 5vh;
+  font-size: 7vw;
+}
+
+.register-section {
+  padding-bottom: 10vh;
+}
+
+.error-text {
+  padding-bottom: 20px;
+  color: $color-red;
+}
