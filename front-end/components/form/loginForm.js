@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
 import { Redirect } from 'react-router';
 
+import RestClient from '../../common/restClient';
+
 export default class LoginForm extends Component {
   constructor() {
     super();
@@ -47,7 +49,18 @@ export default class LoginForm extends Component {
 
     const { email, password } = this.state;
 
-    //to do: send email and password to verification
+    RestClient.postLogin(email, password)
+      .then(res => {
+        this.setState({
+            token: res.data.token,
+            error: false,
+            redirect: true
+          },
+          () => { this.setCookies(); })
+      })
+      .catch(err => {
+        this.setState({ error: true })
+      });
   }
 
   setCookies() {

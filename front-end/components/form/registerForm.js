@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router';
 
+import RestClient from '../../common/restClient';
+
 export default class RegisterForm extends Component {
   constructor() {
     super();
@@ -51,6 +53,13 @@ export default class RegisterForm extends Component {
 
     const { email, password, repeatedPassword } = this.state;
 
-    // to do: validate and save data in database
+    RestClient.postRegister(email, password, repeatedPassword)
+      .then(res => {
+        this.setState({
+          error: false,
+          redirect: true
+        })
+      })
+      .catch(err => this.setState({ error: true }));
   }
 }
