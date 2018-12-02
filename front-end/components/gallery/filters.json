@@ -1,0 +1,65 @@
+{
+  "filters":
+  [
+    {
+      "name": "Focal length",
+      "databaseName": "FocalLength",
+      "type": "double"
+    },
+    {
+      "name": "Shutter speed value",
+      "databaseName": "ShutterSpeedValue",
+      "type": "double"
+    },
+    {
+      "name": "ISO",
+      "databaseName": "ISO",
+      "type": "double"
+    },
+    {
+      "name": "Maker note",
+      "databaseName": "MakerNote",
+      "type": "single"
+    },
+    {
+      "name": "F-Number",
+      "databaseName": "FNumber",
+      "type": "double"
+    },
+    {
+      "name": "Compressed bits per pixel",
+      "databaseName": "CompressedBitsPerPixel",
+      "type": "double"
+    },
+    {
+      "name": "Aperture value",
+      "databaseName": "ApertureValue",
+      "type": "double"
+    },
+    {
+      "name": "Brightness value",
+      "databaseName": "BrightnessValue",
+      "type": "double"
+    },
+    {
+      "name": "Exposure compensation",
+      "databaseName": "ExposureCompensation",
+      "type": "double"
+    },
+    {
+      "name": "Flash",
+      "databaseName": "Flash",
+      "type": "single"
+    },
+    {
+      "name": "Exif image width",
+      "databaseName": "ExifImageWidth",
+      "type": "double"
+    },
+    {
+      "name": "Exif image height",
+      "databaseName": "ExifImageHeight",
+      "type": "double"
+    }
+  ]
+}
