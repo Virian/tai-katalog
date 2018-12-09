@@ -5,7 +5,6 @@ import RestClient from '../../common/restClient';
 import SinglePhoto from '../singlePhoto';
 import SingleFilter from '../singleFilter';
 import UploadPopup from '../uploadPopup';
-import DeletePhotoPopup from '../deletePhotoPopup';
 import Options from '../sortingDropdown/select.json';
 import Dropdown from '../sortingDropdown';
 
@@ -20,8 +19,6 @@ export default class Gallery extends React.Component {
       isPhotosLoaded: false,
       uploadPopupActive: false,
       filterJSON: {},
-      deletePopupActive: false,
-      photoIdToDelete: null,
       sortingQuery: {},
     }
 
@@ -81,24 +78,6 @@ export default class Gallery extends React.Component {
       .catch(err => console.error(err));
   }
 
-  deleteCompleted() {
-    this.fetch();
-  }
-
-  openDeletePopup(photoId) {
-    this.setState({
-      deletePopupActive: true,
-      photoIdToDelete: photoId,
-    });
-  }
-
-  closeDeletePopup() {
-    this.setState({
-      deletePopupActive: false,
-      photoIdToDelete: null,
-    });
-  }
-
   handleSelectChange(query) {
     this.setState({
       sortingQuery: query
@@ -114,7 +93,7 @@ export default class Gallery extends React.Component {
   }
 
   render() {
-    const { isUserDataReady, loggedUsername, isPhotosLoaded, photosNumber, photos, uploadPopupActive, deletePopupActive, photoIdToDelete, filterJSON } = this.state;
+    const { isUserDataReady, loggedUsername, isPhotosLoaded, photosNumber, photos, uploadPopupActive, filterJSON } = this.state;
     return (
       <div className='gallery__container'>
         <div className='gallery-sidebar'>
@@ -180,13 +159,6 @@ export default class Gallery extends React.Component {
               uploadCompleted={() => this.uploadCompleted()}
             />
           }
-          {deletePopupActive &&
-            <DeletePhotoPopup
-              closePopup={() => this.closeDeletePopup()}
-              deleteCompleted={() => this.deleteCompleted()}
-              photoId={photoIdToDelete}
-            />
-          }
           <div className='gallery__photo-container'>
             {
               (isPhotosLoaded && (photos.length > 0)) ?
@@ -194,7 +166,7 @@ export default class Gallery extends React.Component {
                   return <SinglePhoto
                     image={photo.url}
                     key={key}
-                    openDeletePopup={() => this.openDeletePopup(photo._id)}
+                    openDeletePopup={() => console.log('delete img')}
                     photoId={photo._id}
                   />
                 })
