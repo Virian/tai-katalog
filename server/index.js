@@ -31,6 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.text({ type: "*/*" }));
 app.use(express.static(__dirname + '/public'));
+app.use('/api', require('./api'));
 app.use('/auth', require('./auth'));
 
 app.listen(process.env.port || 4000, function () {
