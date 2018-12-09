@@ -1,0 +1,41 @@
+{
+  "option":
+  [
+    {
+      "id":0,
+      "title":"focal length ASC",
+      "databaseName": "exif.FocalLength",
+      "selected":false
+    },
+    {
+      "id":1,
+      "title":"focal length DESC",
+      "databaseName": "exif.FocalLength",
+      "selected":false
+    },
+    {
+      "id":2,
+      "title":"shutter speed value ASC",
+      "databaseName": "exif.ShutterSpeedValue",
+      "selected":false
+    },
+    {
+      "id":3,
+      "title":"shutter speed value DESC",
+      "databaseName": "exif.ShutterSpeedValue",
+      "selected":false
+    },
+    {
+      "id":4,
+      "title":"ISO ASC",
+      "databaseName": "exif.ISO",
+      "selected":false
+    },
+    {
+      "id":5,
+      "title":"ISO DESC",
+      "databaseName": "exif.ISO",
+      "selected":false
+    }
+  ]
+}

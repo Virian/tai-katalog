@@ -6,7 +6,6 @@ import { URLS } from '../config';
 const RestClient = (() => {
   const apiPath = 'http://localhost:4000';
   const {
-    testPath,
     photos,
     login,
     register,
@@ -46,9 +45,49 @@ const RestClient = (() => {
     return doPost(register, { email, password, confirmPassword });
   }
 
+  const getPhotos = (token) => {
+    return doPostAuth(photos, token)
+  }
+
+  const postUploadPhoto = (token, file) => {
+    let formData = new FormData();
+    formData.append('file', file);
+
+    const authOptions = {
+      method: 'post',
+      url: apiPath + uploadPhoto,
+      headers: {
+        'X-Access-Token': token,
+      },
+      data: formData
+    };
+
+    return axios(authOptions);
+  }
+
+  const postGetSpecificPhotos = (token, filterOptions, sortingOptions) => {
+    const authOptions = {
+      method: 'post',
+      url: apiPath + photos,
+      headers: {
+        'X-Access-Token': token,
+      },
+      data: {
+        options: {
+          where: filterOptions,
+          sort: sortingOptions
+        }
+      }
+    };
+    return axios(authOptions);
+  }
+
   return {
     postLogin,
     postRegister,
+    getPhotos,
+    postUploadPhoto,
+    postGetSpecificPhotos,
   };
 })();
 
