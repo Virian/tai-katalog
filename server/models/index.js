@@ -1,5 +1,7 @@
+const Image = require('./Image');
 const User = require('./User');
 
 module.exports = {
-  User: User
+  Image: Image,
+  User: User,
 };
