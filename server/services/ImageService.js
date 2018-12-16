@@ -10,6 +10,15 @@ function save (data) {
   })
 }
 
+function update (id, data) {
+  return new Promise(function (resolve, reject) {
+    Image.update({ _id: id }, { $set: data }, function (err) {
+      if (err) reject(err);
+      resolve();
+    })
+  })
+}
+
 function find (options) {
   return new Promise(function (resolve, reject) {
     Image
@@ -47,6 +56,7 @@ function generateUrl (req) {
 
 module.exports = {
   save: save,
+  update:update,
   find: find,
   findOne: findOne,
   generateUrl: generateUrl,
