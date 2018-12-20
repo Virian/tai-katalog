@@ -13,7 +13,7 @@ export default class SinglePhoto extends React.Component {
       <div className='gallery__single-photo-container'>
         <div className='gallery__single-photo' style={{ backgroundImage: `url(${this.props.image})` }}>
         </div>
-        <img src={editIcon} className='gallery__icon'/>
+        <Link to={`/edit/${this.props.photoId}`}><img src={editIcon} className='gallery__icon'/></Link>
         <img src={deleteIcon} className='gallery__icon'/>
       </div>
     );

@@ -49,6 +49,39 @@ const RestClient = (() => {
     return doPostAuth(photos, token)
   }
 
+  const getPhoto = (token, photoId) => {
+    const authOptions = {
+      method: 'post',
+      url: apiPath + photo,
+      headers: {
+        'X-Access-Token': token,
+      },
+      data: {
+        id: photoId
+      }
+    };
+
+    return axios(authOptions);
+  }
+
+  const updateEditedPhoto = (token, photoId, exifData) => {
+    const authOptions = {
+      method: 'post',
+      url: apiPath + updatePhoto,
+      headers: {
+        'X-Access-Token': token,
+      },
+      data: {
+        id: photoId,
+        data: {
+          exif: exifData
+        }
+      }
+    };
+
+    return axios(authOptions);
+  }
+
   const postUploadPhoto = (token, file) => {
     let formData = new FormData();
     formData.append('file', file);
@@ -88,6 +121,8 @@ const RestClient = (() => {
     getPhotos,
     postUploadPhoto,
     postGetSpecificPhotos,
+    getPhoto,
+    updateEditedPhoto,
   };
 })();
 

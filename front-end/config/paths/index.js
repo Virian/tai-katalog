@@ -3,4 +3,6 @@ export default {
   register: '/auth/register',
   uploadPhoto: '/api/uploadPhoto',
   photos: '/api/photos',
+  updatePhoto: '/api/updatePhoto',
+  photo: '/api/photo'
 }

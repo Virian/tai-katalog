@@ -9,6 +9,7 @@ const _ = require('lodash');
 const { URLS } = require('./config');
 const {
   uploadPhoto,
+  updatePhoto,
   photos,
   photo
 } = URLS;
@@ -59,6 +60,56 @@ router.post(uploadPhoto, userService.verifyToken, function (req, res) {
       errorHandler.sendError(res, err, 500);
     }
   });
+})
+
+/**
+ * Examplary JSON
+ * {"id":"5ab77d53c357892bcc7531c6","data":{"image.Make":"Nikon"}}
+ *
+ * Note that for updating nested properties instead of declaring an object you should insert a dot. That is because
+ * "image":{"Make":"Nikon"} would override whole image object and you will lose all other properties of `image` object.
+ * If you still want to maintain object-like JSON then you should pass all object properties to data object. So, second
+ * example:
+ * Let's say we have a model Book:
+ * {
+ *  _id: mongoose.Types.ObjectId
+ *  title: String,
+ *  author: {
+ *    firstName: String,
+ *    lastName: String
+ *  }
+ * }
+ * and example book:
+ * {
+ *  _id: '123',
+ *  title: 'Example',
+ *  author: {
+ *    firstName: 'Paul',
+ *    lastName: 'White'
+ *  }
+ * }
+ * Now, to update his first name and keep his last name untouched you can either pass this:
+ * {"id":"123","data":{"author.firstName":"John"}}
+ * or:
+ * {"id":"123","data":{"author":{"firstName":"John","lastName":"White"}}}
+ *
+ * This function is authenticated. This means you must add 'X-Access-Token' header containing valid token to your request.
+ */
+router.post(updatePhoto, userService.verifyToken, async function (req, res) {
+  try {
+    const imgId = req.body.id;
+    const img = await imageService.findOne({
+      where: {
+        _id: imgId
+      }
+    });
+    if (!img) errorHandler.sendError(res, new Error('There is no image with given id!'), 404);
+    if (img.userId !== req.userId) errorHandler.sendError(res, new Error('You can only update your photos!'), 403);
+    await imageService.update(imgId, req.body.data);
+    res.send({ status: 'success' });
+  } catch (err) {
+    errorHandler.sendError(res, err, 500);
+  }
 })
 
 /**
