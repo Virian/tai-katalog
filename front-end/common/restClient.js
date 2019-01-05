@@ -98,6 +98,21 @@ const RestClient = (() => {
     return axios(authOptions);
   }
 
+  const postRemovePhoto = (token, photoId) => {
+    const authOptions = {
+      method: 'post',
+      url: apiPath + removePhoto,
+      headers: {
+        'X-Access-Token': token,
+      },
+      data: {
+        id: photoId
+      }
+    };
+
+    return axios(authOptions);
+  }
+
   const postGetSpecificPhotos = (token, filterOptions, sortingOptions) => {
     const authOptions = {
       method: 'post',
@@ -120,6 +135,7 @@ const RestClient = (() => {
     postRegister,
     getPhotos,
     postUploadPhoto,
+    postRemovePhoto,
     postGetSpecificPhotos,
     getPhoto,
     updateEditedPhoto,

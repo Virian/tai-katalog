@@ -4,5 +4,6 @@ export default {
   uploadPhoto: '/api/uploadPhoto',
   photos: '/api/photos',
   updatePhoto: '/api/updatePhoto',
+  removePhoto: '/api/removePhoto',
   photo: '/api/photo'
 }
