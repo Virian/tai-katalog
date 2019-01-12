@@ -9,12 +9,14 @@ export default class SinglePhoto extends React.Component {
   }
 
   render() {
+    const { openDeletePopup } = this.props;
+
     return (
       <div className='gallery__single-photo-container'>
         <div className='gallery__single-photo' style={{ backgroundImage: `url(${this.props.image})` }}>
         </div>
         <Link to={`/edit/${this.props.photoId}`}><img src={editIcon} className='gallery__icon'/></Link>
-        <img src={deleteIcon} className='gallery__icon'/>
+        <img src={deleteIcon} className='gallery__icon' onClick={openDeletePopup}/>
       </div>
     );
   }

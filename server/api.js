@@ -10,6 +10,7 @@ const { URLS } = require('./config');
 const {
   uploadPhoto,
   updatePhoto,
+  removePhoto,
   photos,
   photo
 } = URLS;
@@ -138,6 +139,32 @@ router.post(photo, userService.verifyToken, async function (req, res) {
   }
 })
 
+/**
+ * Exemplary JSON:
+ * {
+ *  id: '123'
+ * }
+ *
+ * This function is authenticated. This means you must add 'X-Access-Token' header containing valid token to your request.
+ */
+router.post(removePhoto, userService.verifyToken, async function (req, res) {
+  try {
+    const imgId = req.body.id;
+    const img = await imageService.findOne({
+      where: {
+        _id: imgId
+      }
+    });
+    if (!img) errorHandler.sendError(res, new Error('There is no image with given id!'), 404);
+    if (img.userId !== req.userId) errorHandler.sendError(res, new Error('You can only remove your photos!'), 403);
+    const filePath = staticDirectory + img.url.slice(img.url.indexOf(uploadDirectory));
+    fs.unlinkSync(filePath);
+    await imageService.remove(imgId);
+    res.send({ status: 'success' });
+  } catch (err) {
+    errorHandler.sendError(res, err, 500);
+  }
+})
 /**
  * Exemplary JSON:
  * {

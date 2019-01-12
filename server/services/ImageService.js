@@ -20,6 +20,15 @@ function update (id, data) {
   })
 }
 
+function remove (id) {
+  return new Promise(function (resolve, reject) {
+    Image.remove({ _id: id }, function (err) {
+      if (err) reject(err);
+      resolve();
+    })
+  })
+}
+
 function find (options) {
   return new Promise(function (resolve, reject) {
     Image
@@ -82,6 +91,7 @@ function getGoogleInceptionClasses (input, threshold) {
 module.exports = {
   save: save,
   update:update,
+  remove:remove,
   find: find,
   findOne: findOne,
   generateUrl: generateUrl,
