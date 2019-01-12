@@ -321,6 +321,13 @@
     margin: 0 auto;
   }
 
+  .gallery__image-classes {
+    width: 80%;
+    margin: 10px auto;
+    color: $color-white;
+    overflow-wrap: break-word;
+  }
+
   .exif__fields-section {
     width: 25%;
     float: left;

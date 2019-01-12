@@ -27,7 +27,8 @@ export default class EditPhoto extends React.Component {
       .then((res) => {
         this.setState({
           imageUrl: res.data.url,
-          exif: res.data.exif
+          exif: res.data.exif,
+          classes: res.data.classes,
         });
       })
       .catch(err => console.error(err));
@@ -47,6 +48,8 @@ export default class EditPhoto extends React.Component {
             <Link to={'/gallery'}><img src={`http://localhost:8080/${backIcon}`} className='gallery__icon gallery__back-icon'/></Link>
           </div>
           <img src={this.state.imageUrl} className='gallery__edited-image'/>
+          <span className='gallery__image-classes'>Recognized classes:<br/>
+            {this.state.classes}</span>
         </div>
         <div className='gallery'>
           <div className='gallery__photo-container'>
