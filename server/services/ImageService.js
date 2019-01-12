@@ -13,7 +13,7 @@ function save (data) {
 
 function update (id, data) {
   return new Promise(function (resolve, reject) {
-    Image.update({ _id: id }, { $set: data }, function (err) {
+    Image.updateOne({ _id: id }, { $set: data }, function (err) {
       if (err) reject(err);
       resolve();
     })
@@ -22,7 +22,7 @@ function update (id, data) {
 
 function remove (id) {
   return new Promise(function (resolve, reject) {
-    Image.remove({ _id: id }, function (err) {
+    Image.deleteOne({ _id: id }, function (err) {
       if (err) reject(err);
       resolve();
     })
