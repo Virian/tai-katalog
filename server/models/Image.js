@@ -75,6 +75,7 @@ const imageSchema = mongoose.Schema({
     ExposureWarning: Number,
     error: String
   },
+  classes: String,
   url: String,
   userId: String // maybe it should be objectId instead // well it should but it works so I don't bother
 })

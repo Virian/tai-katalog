@@ -51,11 +51,13 @@ router.post(uploadPhoto, userService.verifyToken, function (req, res) {
     try {
       if (err) errorHandler.sendError(res, err, 500);
       const url = imageService.generateUrl(req);
-      const imgBuffer = fs.readFileSync(req.file.path);
-      const exifData = await exifService.getExifData(imgBuffer);
-      const imgData = _.assign(exifData, { url: url, userId: req.userId });
-      await imageService.save(imgData);
-      res.send({ status: 'success' });
+      imageService.classifyImage(req.file.path, async (classesString) => {
+        const imgBuffer = fs.readFileSync(req.file.path);
+        const exifData = await exifService.getExifData(imgBuffer);
+        const imgData = _.assign(exifData, { classes: classesString, url: url, userId: req.userId });
+        await imageService.save(imgData);
+        res.send({ status: 'success' });
+      })
     } catch (err) {
       fs.unlinkSync(req.file.path);
       errorHandler.sendError(res, err, 500);

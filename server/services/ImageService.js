@@ -1,3 +1,4 @@
+const exec = require('child_process').exec;
 const { Image } = require('../models');
 
 function save (data) {
@@ -12,7 +13,7 @@ function save (data) {
 
 function update (id, data) {
   return new Promise(function (resolve, reject) {
-    Image.update({ _id: id }, { $set: data }, function (err) {
+    Image.updateOne({ _id: id }, { $set: data }, function (err) {
       if (err) reject(err);
       resolve();
     })
@@ -21,7 +22,7 @@ function update (id, data) {
 
 function remove (id) {
   return new Promise(function (resolve, reject) {
-    Image.remove({ _id: id }, function (err) {
+    Image.deleteOne({ _id: id }, function (err) {
       if (err) reject(err);
       resolve();
     })
@@ -63,6 +64,30 @@ function generateUrl (req) {
   return req.protocol + "://" + host + ':' + port + '/' + filePath;
 }
 
+function classifyImage (filePath, callback) {
+  let cmd = 'python classify_image.py --image_file ' + filePath
+  exec(cmd, function(error, stdout, stderr) {
+    let classesString = '';
+    if (error) console.log(stderr);
+    else classesString = getGoogleInceptionClasses(stdout, 0.1);
+    callback(classesString);
+  });
+}
+
+function getGoogleInceptionClasses (input, threshold) {
+  let returnString = '';
+  const classes = input.split('\r\n');
+  for (classString of classes) {
+    if (classString.length === 0) continue;
+    const eqIdx = classString.lastIndexOf('=');
+    const score = parseFloat(classString.slice(eqIdx + 2, classString.length - 2));
+    if (score < threshold) continue;
+    if (returnString.length > 0) returnString += ', ';
+    returnString += classString.slice(0, classString.indexOf('(') - 1);
+  }
+  return returnString;
+}
+
 module.exports = {
   save: save,
   update:update,
@@ -70,4 +95,6 @@ module.exports = {
   find: find,
   findOne: findOne,
   generateUrl: generateUrl,
+  classifyImage: classifyImage,
+  getGoogleInceptionClasses: getGoogleInceptionClasses
 }
